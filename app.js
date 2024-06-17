@@ -7,8 +7,9 @@ const currentEquation = {
     currentOpporator:"",
     valueTwo:"",
     firstValue: true,
+    sumJustRan: false,
     handleNumber(inputNumber) {
-        if (this.valueOne && this.valueTwo && this.currentOpporator){
+        if (this.sumJustRan && !this.firstValue){
             this.clearEquation();
         }
         if (this.firstValue){
@@ -23,6 +24,7 @@ const currentEquation = {
     handleOpporator(inputOpporator, oppString) {
         if (this.valueOne && this.valueTwo && this.currentOpporator){
             this.valueOne = this.runEquation();
+            this.sumJustRan = false;
             this.valueTwo = "";
         }
         else if (this.currentOpporator || !this.valueOne){
@@ -40,6 +42,7 @@ const currentEquation = {
         if (this.valueOne && this.valueTwo && this.currentOpporator){
             this.calculatorDisplay = this.currentOpporator(Number(this.valueOne),Number(this.valueTwo));
             this.updateDisplay();
+            this.sumJustRan = true;
             return this.calculatorDisplay;
         }
         return "Missing Opporators"
@@ -50,6 +53,7 @@ const currentEquation = {
         this.currentOpporator = "";
         this.valueTwo = "";
         this.firstValue = true;
+        this.sumJustRan = false;
         this.updateDisplay();
     },
     updateDisplay() {
